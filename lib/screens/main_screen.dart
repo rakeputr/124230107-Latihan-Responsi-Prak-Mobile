@@ -1,4 +1,3 @@
-// lib/screens/main_screen.dart
 import 'package:flutter/material.dart';
 import 'home_page.dart';
 import 'favorite_page.dart';
@@ -17,7 +16,7 @@ class _MainScreenState extends State<MainScreen> {
   final List<Widget> _pages = [
     const HomePage(),
     const FavoritePage(),
-    const ProfilePage(),
+    ProfilePage(),
   ];
 
   void _onItemTapped(int index) {

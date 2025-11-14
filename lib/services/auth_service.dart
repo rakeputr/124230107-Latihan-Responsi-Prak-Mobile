@@ -6,6 +6,16 @@ class AuthService {
   final Box<UserModel> _userBox = Hive.box('userBox');
   static const String _sessionKey = 'loggedInUser';
 
+  Future<UserModel?> getLoggedInUser() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? username = prefs.getString(_sessionKey);
+
+    if (username != null) {
+      return _userBox.get(username);
+    }
+    return null;
+  }
+
   String? registerUser(String fullName, String username, String password) {
     if (_userBox.containsKey(username)) {
       return 'Username sudah terdaftar.';

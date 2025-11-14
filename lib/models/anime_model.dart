@@ -25,4 +25,17 @@ class AnimeModel {
       rank: json['rank'] as int?,
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'mal_id': malId,
+      'title': title,
+      'images': {
+        'jpg': {'image_url': imageUrl},
+      },
+      'score': score,
+      'synopsis': synopsis,
+      'rank': rank,
+    };
+  }
 }

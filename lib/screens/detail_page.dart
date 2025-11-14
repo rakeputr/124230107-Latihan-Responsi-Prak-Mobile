@@ -14,6 +14,7 @@ class DetailPage extends StatefulWidget {
 
 class _DetailPageState extends State<DetailPage> {
   bool _isFavorite = false;
+  bool _isStatusLoading = true;
   static const String _favoriteKey = 'favoriteAnimeIds';
 
   @override
@@ -25,38 +26,47 @@ class _DetailPageState extends State<DetailPage> {
   Future<void> _checkFavoriteStatus() async {
     final prefs = await SharedPreferences.getInstance();
     final jsonString = prefs.getString(_favoriteKey) ?? '[]';
-    final List<dynamic> favoriteIds = json.decode(jsonString);
+    final List<dynamic> favoriteListJson = json.decode(jsonString);
 
-    setState(() {
-      _isFavorite = favoriteIds.contains(widget.anime.malId);
-    });
+    if (mounted) {
+      setState(() {
+        _isFavorite = favoriteListJson.any(
+          (item) => item['mal_id'] == widget.anime.malId,
+        );
+        _isStatusLoading = false;
+      });
+    }
   }
 
   Future<void> _toggleFavorite() async {
     final prefs = await SharedPreferences.getInstance();
     final jsonString = prefs.getString(_favoriteKey) ?? '[]';
-    List<dynamic> favoriteIds = json.decode(jsonString);
+    List<dynamic> favoriteListJson = json.decode(jsonString);
 
     if (_isFavorite) {
-      favoriteIds.remove(widget.anime.malId);
+      favoriteListJson.removeWhere(
+        (item) => item['mal_id'] == widget.anime.malId,
+      );
     } else {
-      favoriteIds.add(widget.anime.malId);
+      favoriteListJson.add(widget.anime.toJson());
     }
 
-    await prefs.setString(_favoriteKey, json.encode(favoriteIds));
+    await prefs.setString(_favoriteKey, json.encode(favoriteListJson));
 
-    setState(() {
-      _isFavorite = !_isFavorite;
-    });
+    if (mounted) {
+      setState(() {
+        _isFavorite = !_isFavorite;
+      });
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          _isFavorite ? 'Ditambahkan ke Favorite!' : 'Dihapus dari Favorite!',
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            _isFavorite ? 'Ditambahkan ke Favorite!' : 'Dihapus dari Favorite!',
+          ),
+          duration: const Duration(seconds: 1),
         ),
-        duration: const Duration(seconds: 1),
-      ),
-    );
+      );
+    }
   }
 
   @override
@@ -69,20 +79,30 @@ class _DetailPageState extends State<DetailPage> {
           onPressed: () => Navigator.pop(context),
         ),
         actions: [
-          IconButton(
-            icon: Icon(
-              _isFavorite ? Icons.favorite : Icons.favorite_border,
-              color: _isFavorite ? Colors.red : Colors.grey,
-            ),
-            onPressed: _toggleFavorite,
-          ),
+          _isStatusLoading
+              ? const Center(
+                  child: Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: SizedBox(
+                      width: 24,
+                      height: 24,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    ),
+                  ),
+                )
+              : IconButton(
+                  icon: Icon(
+                    _isFavorite ? Icons.favorite : Icons.favorite_border,
+                    color: _isFavorite ? Colors.red : Colors.grey,
+                  ),
+                  onPressed: _toggleFavorite,
+                ),
         ],
       ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // 1. Poster Anime
             Image.network(
               widget.anime.imageUrl,
               width: double.infinity,
