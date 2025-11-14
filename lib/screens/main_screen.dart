@@ -19,6 +19,12 @@ class _MainScreenState extends State<MainScreen> {
     ProfilePage(),
   ];
 
+  final List<String> _titles = const [
+    'Daftar Anime Teratas',
+    'Anime Favorit',
+    'Profil Pengguna',
+  ];
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -28,7 +34,10 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text(_titles[_selectedIndex])),
+
       body: _pages[_selectedIndex],
+
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),

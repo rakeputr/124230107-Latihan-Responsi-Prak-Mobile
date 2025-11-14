@@ -50,7 +50,6 @@ class _FavoritePageState extends State<FavoritePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Daftar Anime Favorite')),
       body: RefreshIndicator(
         onRefresh: _loadFavorites,
         child: _isLoading

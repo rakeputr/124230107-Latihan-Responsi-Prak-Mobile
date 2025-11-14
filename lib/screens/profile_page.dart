@@ -24,7 +24,6 @@ class ProfilePage extends StatelessWidget {
     const String staticPhoto = 'https://i.pravatar.cc/150?img=1';
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Profil Pengguna')),
       body: FutureBuilder<UserModel?>(
         future: _authController.getLoggedInUser(),
         builder: (context, snapshot) {

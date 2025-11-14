@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:latihan_responsi_anime/screens/main_screen.dart';
 import '../controllers/auth_controller.dart';
-import 'home_page.dart';
 import 'register_page.dart';
 
 class LoginPage extends StatelessWidget {
@@ -22,7 +22,7 @@ class LoginPage extends StatelessWidget {
       ).showSnackBar(const SnackBar(content: Text('Login Berhasil!')));
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => HomePage()),
+        MaterialPageRoute(builder: (context) => MainScreen()),
         (Route<dynamic> route) => false,
       );
     } else {

@@ -23,10 +23,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Consumer<AnimeController>(
       builder: (context, controller, child) {
-        return Scaffold(
-          appBar: AppBar(title: const Text('Daftar Anime Teratas')),
-          body: _buildBody(controller),
-        );
+        return Scaffold(body: _buildBody(controller));
       },
     );
   }
