@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:latihan_responsi_anime/screens/main_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'screens/register_page.dart';
-import 'screens/home_page.dart';
 import 'controllers/anime_controller.dart';
 
 class MyApp extends StatelessWidget {
@@ -42,7 +42,7 @@ class AuthWrapper extends StatelessWidget {
         }
 
         if (snapshot.data == true) {
-          return HomePage();
+          return const MainScreen();
         }
 
         return RegisterPage();

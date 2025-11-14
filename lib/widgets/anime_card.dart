@@ -11,7 +11,6 @@ class AnimeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Arahkan ke Detail Page saat diklik
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => DetailPage(anime: anime)),
