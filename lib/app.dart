@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'screens/register_page.dart';
 import 'screens/home_page.dart';
+import 'controllers/anime_controller.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Anime App Project',
-      theme: ThemeData(primarySwatch: Colors.blue, useMaterial3: true),
-      home: const AuthWrapper(),
+    return MultiProvider(
+      providers: [ChangeNotifierProvider(create: (_) => AnimeController())],
+      child: MaterialApp(
+        title: 'Anime Favorite Aing',
+        theme: ThemeData(primarySwatch: Colors.blue, useMaterial3: true),
+        home: const AuthWrapper(),
+      ),
     );
   }
 }
