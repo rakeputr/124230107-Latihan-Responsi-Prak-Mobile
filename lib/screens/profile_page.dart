@@ -21,7 +21,7 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     const String staticNIM = '124230107';
     const String staticNama = 'Rake Putri Cahyani';
-    const String staticPhoto = 'https://i.pravatar.cc/150?img=1';
+    const String staticPhoto = 'rake.jpg';
 
     return Scaffold(
       body: FutureBuilder<UserModel?>(
@@ -46,7 +46,7 @@ class ProfilePage extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 60,
-                  backgroundImage: NetworkImage(staticPhoto),
+                  backgroundImage: AssetImage(staticPhoto),
                 ),
                 const SizedBox(height: 20),
 
