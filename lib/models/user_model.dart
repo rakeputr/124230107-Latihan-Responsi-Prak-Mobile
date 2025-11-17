@@ -19,3 +19,6 @@ class UserModel extends HiveObject {
     required this.password,
   });
 }
+
+// ini biar ga lupa, jalanin ini kalo bikin box hive : 
+// flutter packages pub run build_runner build --delete-conflicting-outputs
